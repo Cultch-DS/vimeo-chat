@@ -1,0 +1,140 @@
+JAVASCRIPT CODE FOR PAGE SETTINGS
+
+jQuery(document).ready(function($){
+
+  $(".fullscreen-button").click(function() {
+    $(".embedded-video-chat").addClass("show");
+    
+    var el = document.getElementById("fullscreen")
+
+    if (el.requestFullScreen)
+    {
+        el.requestFullScreen();
+    }
+    else if (el.mozRequestFullScreen)
+    {
+        el.mozRequestFullScreen();
+    }
+    else if (el.webkitRequestFullScreen)
+    {
+        el.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);
+    }
+    else if (el.msRequestFullScreen)
+    {
+        el.msRequestFullScreen();
+    }
+  });
+    
+  document.addEventListener('fullscreenchange', exitHandler);
+  document.addEventListener('webkitfullscreenchange', exitHandler);
+  document.addEventListener('mozfullscreenchange', exitHandler);
+  document.addEventListener('MSFullscreenChange', exitHandler);
+
+
+  function exitHandler() {
+    if (!document.fullscreenElement && !document.webkitIsFullScreen && !document.mozFullScreen && !document.msFullscreenElement) {
+      $(".embedded-video-chat").removeClass("show");
+    }
+  }  
+});
+
+BUTTON HTML & CSS CODE
+
+<button class="fullscreen-button">Change me</button>
+
+.fullscreen-button {
+  color: white;
+  background: #4054B2;
+  margin: 120px auto;
+  border: 0;
+  display: flex;
+}
+
+.fullscreen-button:hover, .fullscreen-button:focus {
+  background: #f5cc78;
+}
+
+@media (max-width: 1024px) {
+  .fullscreen-button, .hide-on-mobile {
+      display: none;
+  }
+}
+
+FULLSCREEN MODAL HTML & CSS CODE
+
+<div id="fullscreen" class="embedded-video-chat">
+  <div class="fullscreen-disclaimer">Press ESC to Close Full Screen Video</div>
+  <div class="video-column">
+    <div class="video-container">
+      <iframe src="https://vimeo.com/event/593009/embed" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen class="responsive-iframe"></iframe>
+    </div>
+  </div>
+  <div class="chat-column">
+    <div class="video-container">
+      <iframe src="https://vimeo.com/event/593009/chat/" frame-border="0" class="responsive-iframe"></iframe>
+    </div>
+  </div>
+</div>
+
+.video-column {
+  width: 100%;
+}
+.chat-column {
+  width: 100%;
+}
+
+.video-container {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  padding-top: 56.25%;
+}
+
+.chat-container {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  padding-top: 56.25%;
+}
+
+.responsive-iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.fullscreen-disclaimer {
+  display: none;
+}
+
+@media (min-width: 1025px) {
+  .embedded-video-chat { 
+    display: none;
+    align-items: center;
+    height: 100vh;
+    background: black;
+  }
+  .embedded-video-chat.show {
+    display: flex;
+  }
+  .fullscreen-disclaimer {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    display: block;
+  }
+  .video-column {
+   width: 70vw; 
+  }
+  .chat-column {
+    width: 30vw;
+  }
+  .chat-container {
+    padding-top: 188.25%;
+  }
+
+x
